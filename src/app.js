@@ -17,11 +17,9 @@ app.use(bodyParser.urlencoded({
 app.use(cookieParser())
 
 
-//
+import * as manager from './manager'
 app.post('/', (req, res) => {
-    console.log(req.body.commits)
-    console.log(req.body.commits[0].added)
-    res.send('fak')
+    manager.processCommit(req).then(() => {res.send('')})
 })
 app.get('/', (req, res) => {
   res.send('Henlo ALenks')
