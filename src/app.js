@@ -19,7 +19,8 @@ app.use(cookieParser())
 
 //
 app.post('/', (req, res) => {
-    console.log(req.body)
+    console.log(req.body.commits)
+    console.log(req.body.commits[0].added)
     res.send('fak')
 })
 app.get('/', (req, res) => {
