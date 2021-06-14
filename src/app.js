@@ -21,9 +21,6 @@ import * as manager from './manager'
 app.post('/', (req, res) => {
     manager.processCommit(req).then(() => {res.send('')})
 })
-app.get('/', (req, res) => {
-  res.send('Henlo ALenks')
-})
 
 //Starting the server
 app.listen({ port: 9001 }, () => {
