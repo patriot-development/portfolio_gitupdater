@@ -8,6 +8,10 @@ export async function AddToDatabase(stats, timestamp, message, pId) {
 
 export async function addCommitToRepo(pId){
     const sql = getSQL();
+    let res = await sql('repository').select('*').where({id: pId});
+    if(res.length == 0){
+        await sql.raw('INSERT INTO `onHoldRepo` (`id`, `commits`) values (' + pId + ', 1) ON DUPLICATE KEY UPDATE `id` = `id` = `id` + 1')
+    }
     await sql('repository').update(sql.raw('commits = commits + 1')).where({id: pId})
     return ''
 }
