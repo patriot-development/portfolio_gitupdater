@@ -6,6 +6,12 @@ export async function AddToDatabase(stats, timestamp, message, pId) {
     return ''
 }
 
+export async function addCommitToRepo(pId){
+    const sql = getSQL();
+    await sql('repository').update(sql.raw('commits = commits + 1')).where({id: pId})
+    return ''
+}
+
 function getSQL(){
     const s = knex.knex({
         client: "mysql",

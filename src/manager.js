@@ -15,6 +15,7 @@ export async function processCommit(req) {
               let stats = statusResult.data.stats;
               if(author.login.toLowerCase() == "bartverm779"){
                 await dal.AddToDatabase(stats, commit.timestamp, commit.message, req.body.repository.id)
+                await dal.addCommitToRepo(req.body.repository.id)
               }
             })
         })
