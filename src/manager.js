@@ -6,7 +6,7 @@ export async function processCommit(req) {
         req.body.commits.forEach(commit => {
             axios({
               method: "GET",
-              url: "https://api.github.com/repos/" + req.body.repository.owner.name + "/" + req.body.repository.name + "/commits/" + commit.id,
+              url: "https://api.github.com/repos/" + req.body.repository.full_name + "/commits/" + commit.id,
               headers: {
                   "Authorization": "token " + process.env.TOKEN,
               }
@@ -14,7 +14,7 @@ export async function processCommit(req) {
               let author = statusResult.data.author;
               let stats = statusResult.data.stats;
               if(author.login.toLowerCase() == "bartverm779"){
-                await dal.AddToDatabase(stats, commit.timestamp, commit.message)
+                await dal.AddToDatabase(stats, commit.timestamp, commit.message, req.body.repository.id)
               }
             })
         })

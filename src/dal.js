@@ -1,8 +1,8 @@
 import * as knex from 'knex'
 
-export async function AddToDatabase(stats, timestamp, message) {
+export async function AddToDatabase(stats, timestamp, message, pId) {
     const sql = getSQL();
-    await sql('commitInfo').insert({day: timestamp, additions: stats.additions, deletions: stats.deletions, total: stats.total, message: message})
+    await sql('commitInfo').insert({day: timestamp, additions: stats.additions, deletions: stats.deletions, total: stats.total, message: message, project: pId})
     return ''
 }
 
