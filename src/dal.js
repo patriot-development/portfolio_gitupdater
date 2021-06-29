@@ -12,7 +12,8 @@ export async function addCommitToRepo(pId){
     if(res.length == 0){
         await sql.raw('INSERT INTO `onHoldRepo` (`id`, `commits`) values (' + pId + ', 1) ON DUPLICATE KEY UPDATE `id` = `id` = `id` + 1')
     }
-    await sql('repository').update(sql.raw('commits = commits + 1')).where({id: pId})
+    let s = await sql('repository').select('*').where({id: pId});
+    await sql('repository').update({commits: parseInt(s[0].commits, 10) + 1}).where({id: pId})
     return ''
 }
 
